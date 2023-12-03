@@ -10,7 +10,7 @@ const SignupSchema = Yup.object().shape({
   number: Yup.number().min(3, 'At least 3').required('Required'),
 });
 
-export const ContactsForm = ({ onAdd, contacts }) => (
+export const ContactsForm = ({ onAdd }) => (
   <Formik
     initialValues={{
       name: '',
@@ -18,14 +18,7 @@ export const ContactsForm = ({ onAdd, contacts }) => (
     }}
     validationSchema={SignupSchema}
     onSubmit={(values, actions) => {
-      const uniqueName = contacts.find(
-        contact => contact.name.toLowerCase() === values.name.toLowerCase()
-      );
-      if (uniqueName === undefined) {
-        onAdd(values);
-      } else {
-        alert(`${uniqueName.name} is already in contacts`);
-      }
+      onAdd(values);
       actions.resetForm();
     }}
   >

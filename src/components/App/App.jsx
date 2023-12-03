@@ -29,7 +29,14 @@ export const App = () => {
       ...newName,
       id: nanoid(),
     };
-    setContacts(prevState => [...prevState, name]);
+    const isExist = contacts.find(
+      contact => contact.name.toLowerCase() === newName.name.toLowerCase()
+    );
+    if (isExist) {
+      alert(`${isExist.name} is already in contacts`);
+    } else {
+      setContacts(prevState => [...prevState, name]);
+    }
   };
 
   const searchFilter = name => {
@@ -50,7 +57,7 @@ export const App = () => {
   return (
     <Wrapper>
       <h1>Phonebook</h1>
-      <ContactsForm onAdd={addContact} contacts={contacts} />
+      <ContactsForm onAdd={addContact} />
       <h2>Contacts</h2>
       <Filter filter={filter} onSearch={searchFilter} />
       <ContactList contacts={visibleNames} onDelete={deleteName} />
